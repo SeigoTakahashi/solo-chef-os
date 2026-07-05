@@ -1,6 +1,7 @@
 package usecase
 
 import (
+	"context"
 	"solo-chef-os-backend/internal/domain"
 )
 type RecipeUsecase struct {
@@ -13,6 +14,6 @@ func NewRecipeUsecase(recipeRepository *domain.RecipeRepository) *RecipeUsecase 
 	}
 }
 
-func (u *RecipeUsecase) FetchRecipe(req *domain.RecipeRequest) (*domain.Recipe, error) {
-	return (*u.recipeRepository).FetchRecipe(req)
+func (u *RecipeUsecase) FetchRecipe(ctx *context.Context, req *domain.RecipeRequest) (*domain.Recipe, error) {
+	return (*u.recipeRepository).FetchRecipe(ctx, req)
 }
