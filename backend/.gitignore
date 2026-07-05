@@ -1,0 +1,18 @@
+# Binaries
+main
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Target directories
+bin/
+dist/
+
+# IDEs
+.idea/
+.vscode/
+
+# Env
+.env
