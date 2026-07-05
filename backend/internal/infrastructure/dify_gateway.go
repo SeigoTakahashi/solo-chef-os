@@ -42,7 +42,7 @@ type difyRawResponse struct {
 }
 
 
-func (g *DifyGateway) FetchRecipe(ctx context.Context, req *domain.RecipeRequest) (*domain.Recipe, error) {
+func (g *DifyGateway) FetchRecipe(ctx *context.Context, req *domain.RecipeRequest) (*domain.Recipe, error) {
 	// Difyの共通仕様に合わせてデータを成形
 	bodyObj := difyRequestBody{
 		Inputs:       req,
@@ -56,7 +56,7 @@ func (g *DifyGateway) FetchRecipe(ctx context.Context, req *domain.RecipeRequest
 	}
 
 	// HTTPリクエストの作成
-	httpReq, err := http.NewRequestWithContext(ctx, "POST", g.baseUrl+"/workflows/run", bytes.NewBuffer(jsonBody))
+	httpReq, err := http.NewRequestWithContext(*ctx, "POST", g.baseUrl+"/workflows/run", bytes.NewBuffer(jsonBody))
 	if err != nil {
 		return nil, err
 	}

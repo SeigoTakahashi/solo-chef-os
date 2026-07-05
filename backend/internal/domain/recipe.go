@@ -1,5 +1,7 @@
 package domain
 
+import "context"
+
 type RecipeRequest struct {
 	Mode        string   `json:"mode"`        // "ingredients" or "random"
 	Ingredients []string `json:"ingredients"` // ["豚肉", "キャベツ"]
@@ -18,6 +20,6 @@ type Recipe struct {
 }
 
 type RecipeRepository interface {
-	FetchRecipe(req *RecipeRequest) (*Recipe, error)
+	FetchRecipe(ctx *context.Context, req *RecipeRequest) (*Recipe, error)
 }
 
