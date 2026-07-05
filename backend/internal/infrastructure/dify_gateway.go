@@ -28,7 +28,7 @@ func NewDifyGateway(apiKey string, baseUrl string) *DifyGateway {
 }
 
 type difyRequestBody struct {
-	Inputs       *domain.RecipeRequest `json:"inputs"` 
+	Inputs       map[string]interface{} `json:"inputs"` 
 	User         string                `json:"user"`
 	ResponseMode string                `json:"response_mode"`
 }
@@ -36,7 +36,7 @@ type difyRequestBody struct {
 type difyRawResponse struct {
 	Data struct {
 		Outputs struct {
-			Result string `json:"result"` 
+			RecipeResult string `json:"recipe_result"` 
 		} `json:"outputs"`
 	} `json:"data"`
 }
@@ -45,7 +45,9 @@ type difyRawResponse struct {
 func (g *DifyGateway) FetchRecipe(ctx *context.Context, req *domain.RecipeRequest) (*domain.Recipe, error) {
 	// Difyの共通仕様に合わせてデータを成形
 	bodyObj := difyRequestBody{
-		Inputs:       req,
+		Inputs: map[string]interface{}{
+            "inputs": req, 
+        },
 		User:         "solochef-user-1",
 		ResponseMode: "blocking",
 	}
@@ -90,7 +92,7 @@ func (g *DifyGateway) FetchRecipe(ctx *context.Context, req *domain.RecipeReques
 
 	// 抽出した結果をRecipe構造体に変換して返す
 	var recipe domain.Recipe
-	if err := json.Unmarshal([]byte(difyResp.Data.Outputs.Result), &recipe); err != nil {
+	if err := json.Unmarshal([]byte(difyResp.Data.Outputs.RecipeResult), &recipe); err != nil {
 		return nil, err
 	}
 
