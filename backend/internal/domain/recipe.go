@@ -3,9 +3,9 @@ package domain
 import "context"
 
 type RecipeRequest struct {
-	Mode        string   `json:"mode"`        // "ingredients" or "random"
-	Ingredients []string `json:"ingredients"` // ["豚肉", "キャベツ"]
-	Tags        []string `json:"tags"`        // ["包丁いらず", "レンジだけ"]
+	Mode        string   `json:"mode" validate:"required,oneof=ingredients random"`        // "ingredients" or "random"
+	Ingredients []string `json:"ingredients" validate:"required_if=Mode ingredients,gt=0"` // ["豚肉", "キャベツ"]
+	Tags        []string `json:"tags"`                                                     // ["包丁いらず", "レンジだけ"]
 }
 
 type Ingredient struct {
