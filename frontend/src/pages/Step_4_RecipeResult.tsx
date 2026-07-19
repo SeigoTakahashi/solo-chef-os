@@ -1,86 +1,101 @@
-import React from "react";
-import { ReceiptText, CookingPot, RotateCcw } from "lucide-react";
+import { Sparkles, ReceiptText, ChefHat, RotateCcw } from "lucide-react";
+import type { RecipeResponse } from "../schemas/recipe_response";
+import ErrorMessage from "../components/ErrorMessage";
 
-const Step_4_RecipeResult: React.FC = () => {
-  const ingredients = [
-    { name: "豚コマ肉", amount: "100g" },
-    { name: "ネギ", amount: "適量" },
-    { name: "塩ダレ", amount: "大さじ1" },
-    { name: "ごま油", amount: "小さじ1" },
-  ];
+type Step_4_RecipeResultProps = {
+  recipeData: RecipeResponse;
+  apiError: string | null;
+  setPage: (page: number) => void;
+};
 
-  const steps = [
-    "耐熱容器に材料をすべて入れる",
-    "塩ダレを回しかける",
-    "レンジで5分チンして完成！",
-  ];
+export default function Step_4_RecipeResult({
+  recipeData,
+  apiError,
+  setPage,
+}: Step_4_RecipeResultProps) {
+  const handleResetAll = () => {
+    localStorage.clear();
+    setPage(1);
+  };
 
   return (
-    <div className="w-full max-w-md flex flex-col space-y-6">
-      {/* Title */}
-      <div className="text-center space-y-2">
-        <p className="text-sm font-semibold text-orange-500">
-          ✨ 本日のサクッと飯
-        </p>
-        <h1 className="text-2xl font-bold text-slate-800">
-          極旨！ネギ塩レンジ豚小町
-        </h1>
+    <div className="mx-auto flex min-h-[80vh] w-full max-w-2xl flex-col px-4 py-6 sm:px-6 sm:py-10">
+      {/* Header */}
+      <div className="flex items-center gap-2 text-orange-500">
+        <Sparkles className="h-5 w-5" strokeWidth={2.4} />
+        <span className="text-sm font-bold tracking-tight sm:text-base">
+          SoloChef OS が提案するレシピ
+        </span>
       </div>
+      <h1 className="mt-2 text-2xl font-bold tracking-tight text-slate-800 text-balance sm:text-3xl">
+        {recipeData.title}
+      </h1>
 
-      {/* Recipe Card */}
-      <div className="rounded-2xl border border-slate-100 bg-white shadow-sm p-6 space-y-6">
-        {/* Ingredients */}
-        <div className="space-y-3">
-          <div className="flex items-center gap-2">
-            <ReceiptText className="h-4 w-4 text-orange-500" strokeWidth={2} />
-            <h2 className="text-sm font-bold text-slate-800">材料</h2>
-          </div>
-          <ul className="space-y-2">
-            {ingredients.map((item) => (
-              <li
-                key={item.name}
-                className="flex items-baseline justify-between gap-2 border-b border-dashed border-slate-200 pb-2 text-sm"
-              >
-                <span className="text-slate-700">{item.name}</span>
-                <span className="text-slate-400">{item.amount}</span>
-              </li>
-            ))}
-          </ul>
+      {/* Recipe card */}
+      {apiError ? (
+        <ErrorMessage message={apiError} />
+      ) : (
+        <div className="mt-6 rounded-2xl border-2 border-slate-200 bg-white p-5 shadow-sm sm:p-7">
+          {/* Ingredients */}
+          <section>
+            <div className="flex items-center gap-2">
+              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-orange-50 text-orange-500">
+                <ReceiptText className="h-5 w-5" strokeWidth={2.4} />
+              </span>
+              <h2 className="text-lg font-bold tracking-tight text-slate-800">
+                材料（1人前）
+              </h2>
+            </div>
+            <ul className="mt-4 flex flex-col gap-1">
+              {recipeData.ingredients.map((item) => (
+                <li key={item.name} className="flex items-baseline gap-2">
+                  <span className="shrink-0 text-sm font-medium text-slate-700 sm:text-base">
+                    {item.name}
+                  </span>
+                  <span className="min-w-0 flex-1 translate-y-[-0.2rem] border-b-2 border-dashed border-slate-200" />
+                  <span className="shrink-0 text-sm font-bold text-slate-800 sm:text-base">
+                    {item.amount}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          {/* Steps */}
+          <section className="mt-7 border-t-2 border-slate-100 pt-6">
+            <div className="flex items-center gap-2">
+              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-orange-50 text-orange-500">
+                <ChefHat className="h-5 w-5" strokeWidth={2.4} />
+              </span>
+              <h2 className="text-lg font-bold tracking-tight text-slate-800">
+                作り方
+              </h2>
+            </div>
+            <ol className="mt-4 flex flex-col gap-4">
+              {recipeData.steps.map((step, i) => (
+                <li key={i} className="flex items-start gap-3">
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-orange-500 text-sm font-bold text-white">
+                    {i + 1}
+                  </span>
+                  <p className="pt-0.5 text-sm leading-relaxed text-slate-700 text-pretty sm:text-base">
+                    {step}
+                  </p>
+                </li>
+              ))}
+            </ol>
+          </section>
         </div>
+      )}
 
-        {/* Steps */}
-        <div className="space-y-3">
-          <div className="flex items-center gap-2">
-            <CookingPot className="h-4 w-4 text-orange-500" strokeWidth={2} />
-            <h2 className="text-sm font-bold text-slate-800">作り方</h2>
-          </div>
-          <ol className="space-y-3">
-            {steps.map((step, index) => (
-              <li
-                key={step}
-                className="flex items-start gap-3 text-sm text-slate-700"
-              >
-                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-orange-500 text-xs font-bold text-white">
-                  {index + 1}
-                </span>
-                {step}
-              </li>
-            ))}
-          </ol>
-        </div>
-      </div>
-
-      {/* Retry Button */}
+      {/* Restart button */}
       <button
         type="button"
-        onClick={() => console.log("Restart")}
-        className="flex items-center justify-center gap-2 rounded-full bg-orange-500 px-8 py-4 text-base font-semibold text-white shadow-sm transition-colors duration-200 hover:bg-orange-600 hover:shadow-md active:bg-orange-700"
+        className="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-2xl border-b-4 border-orange-600 bg-orange-500 px-8 py-4 text-base font-bold text-white shadow-sm transition-all hover:bg-orange-500/95 active:translate-y-1 active:border-b-2 sm:text-lg"
+        onClick={handleResetAll}
       >
-        <RotateCcw className="h-5 w-5" strokeWidth={2} />
+        <RotateCcw className="h-5 w-5" strokeWidth={2.4} />
         もう一度レシピを作る
       </button>
     </div>
   );
-};
-
-export default Step_4_RecipeResult;
+}
