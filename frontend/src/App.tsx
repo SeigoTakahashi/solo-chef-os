@@ -76,7 +76,11 @@ function App() {
         />
       )}
       {page === 4 && (
-        <Step_4_RecipeResult recipeData={recipeData} apiError={apiError} />
+        <Step_4_RecipeResult
+          recipeData={recipeData}
+          apiError={apiError}
+          setPage={setPage}
+        />
       )}
     </>
   );
