@@ -54,7 +54,7 @@ func main() {
 	e.Use(middleware.RequestLogger())
 	// CORSの設定
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins: []string{frontendUrl, "http://localhost:5173"}, 
+		AllowOrigins: []string{frontendUrl}, 
 		AllowMethods: []string{http.MethodGet, http.MethodPost, http.MethodOptions}, 
 		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept, echo.HeaderAuthorization}, 
 	}))
