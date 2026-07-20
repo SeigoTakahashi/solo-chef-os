@@ -16,6 +16,7 @@ export default function Step_4_RecipeResult({
   const handleResetAll = () => {
     localStorage.clear();
     setPage(1);
+    window.location.reload();
   };
 
   return (

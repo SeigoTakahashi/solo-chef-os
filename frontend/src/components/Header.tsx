@@ -8,6 +8,7 @@ export default function Header({ setPage }: HeaderProps) {
   const handleLogoClick = () => {
     localStorage.clear(); // localStorageを明示的にクリアする
     setPage(0);
+    window.location.reload();
   };
   return (
     <>

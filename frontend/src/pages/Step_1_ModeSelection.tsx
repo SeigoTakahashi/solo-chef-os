@@ -97,7 +97,7 @@ export default function Step_1_ModeSelection({
                 B. おまかせ生成
               </h3>
               <p className="mt-1 text-sm leading-relaxed text-slate-500">
-                食材を決めず、AIに完全ランダムでお任せ
+                AIに完全ランダムでお任せ
               </p>
             </div>
           </div>
