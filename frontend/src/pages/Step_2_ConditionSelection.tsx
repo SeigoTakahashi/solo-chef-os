@@ -153,7 +153,7 @@ export default function Step_2_ConditionSelection({
               value={ingredientsText}
               onChange={(e) => handleChangeIngredients(e.target.value)}
               placeholder="例：卵、キャベツ、豚バラ肉"
-              className="w-full bg-transparent text-sm font-medium text-slate-800 placeholder:text-slate-400 focus:outline-none"
+              className="w-full bg-transparent text-base sm:text-sm font-medium text-slate-800 placeholder:text-slate-400 focus:outline-none"
             />
           </div>
         </div>
@@ -218,7 +218,7 @@ export default function Step_2_ConditionSelection({
                 handleAddCustomTag();
               }
             }}
-            className="w-full bg-transparent text-sm font-medium text-slate-800 placeholder:text-slate-400 focus:outline-none"
+            className="w-full bg-transparent text-base sm:text-sm font-medium text-slate-800 placeholder:text-slate-400 focus:outline-none"
           />
         </div>
       </div>
