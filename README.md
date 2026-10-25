@@ -29,7 +29,7 @@
 
 ## 技術スタック
 
-- **Frontend**: React, TypeScript, Vite, Tailwind CSS, TanStack Query, Zod, v0
+- **Frontend**: React, TypeScript, Vite, Tailwind CSS, TanStack Query, Zod, v0 (Node.js 24.22.1以上、24.x)
 - **Backend**: Go, Echo (Clean Architecture)
 - **AI Integration**: Dify API
 - **Infrastructure**: Docker, Docker Compose
